@@ -17,8 +17,9 @@ class PruebaController extends Controller
         return 'Hola!';
     }
 
-    public function test()
+    public function test(Request $request)
     {
+        $request->session()->put('hola', new \DateTime());
         return 'hey!';
     }
 }
