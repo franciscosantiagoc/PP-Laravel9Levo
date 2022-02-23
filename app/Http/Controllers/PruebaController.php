@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\PruebaRequest;
 
 class PruebaController extends Controller
 {
@@ -12,11 +13,8 @@ class PruebaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(PruebaRequest $request)
     {
-        $request->validate([
-            'key' => 'required',
-        ]);
         return 'Hola!';
     }
 
