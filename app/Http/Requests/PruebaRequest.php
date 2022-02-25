@@ -13,7 +13,7 @@ class PruebaRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->headers->get('x-api-key') === 'authorized';
+        return true;//$this->headers->get('x-api-key') === 'authorized';
     }
 
     /**
@@ -24,7 +24,9 @@ class PruebaRequest extends FormRequest
     public function rules()
     {
         return [
-            'key' => 'required|email',
+            'name' => 'required|string',
+            // el id (entero), y ser de los Ids del catalogo de procedencia de Kuspit
+            'procedencia' => 'required',
         ];
     }
 }
