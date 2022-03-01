@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\PruebaRequest;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PruebaController extends Controller
 {
@@ -15,17 +16,17 @@ class PruebaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Service $service, PruebaRequest $request)
+    public function __invoke(Service $service, PruebaRequest $request): Response
     {
         /** @var string $name */
         $name = $service->getName($request->validated('procedencia'));
 
-        return $name;
+        return \response($name);
     }
 
-    public function catalogo(Service $service)
+    public function catalogo(Service $service): JsonResponse
     {
-        return response()->json($service->consulta());
+        return \response()->json($service->consulta());
     }
 
     public function test(Request $request)
@@ -34,7 +35,7 @@ class PruebaController extends Controller
             ? Cache::get('cached_date')
             : $this->cacheDate();
 
-        return response()->json([
+        return \response()->json([
             'fecha_cacheada' => $fecha_cacheada,
             'fecha_actual' => new \DateTime(),
         ]);

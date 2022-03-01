@@ -24,10 +24,10 @@ class PruebaRequest extends FormRequest
      */
     public function rules(Service $service)
     {
-        $collection = collect($service->consulta());
-        $list = $collection->pluck('id')
+        $list = $service->consulta()
+            ->pluck('id')
             ->implode(',');
-        //dd($list->implode(','));
+
         return [
             'name' => 'required|string',
             // el id (entero), y ser de los Ids del catalogo de procedencia de Kuspit
