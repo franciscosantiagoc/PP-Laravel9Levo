@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Controllers\Service;
 use Illuminate\Foundation\Http\FormRequest; // extends Request
 
 class PruebaRequest extends FormRequest
@@ -21,12 +22,17 @@ class PruebaRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Service $service)
     {
+        $collection = collect($service->consulta());
+        $list = $collection->pluck('id')
+            ->implode(',');
+        //dd($list->implode(','));
         return [
             'name' => 'required|string',
             // el id (entero), y ser de los Ids del catalogo de procedencia de Kuspit
-            'procedencia' => 'required',
+            'procedencia' => 'required|integer|in:'.$list
+            //'procedencia' => ['required','integer', Rule::in($list)],
         ];
     }
 }

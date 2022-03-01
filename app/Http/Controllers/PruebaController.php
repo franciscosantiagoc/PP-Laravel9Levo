@@ -20,14 +20,13 @@ class PruebaController extends Controller
         // devolver un saludo al usuario (con clave name en el request)
         // solo si pasó la validación (procedencia en catalogo de Kuspit)
         return 'Hola!';
+
+
     }
 
-    public function catalogo(Request $request)
+    public function catalogo(Service $service)
     {
-        $urlCatalogo = 'https://api.kuspit.com/OpenKuspit/api/v1/catalogos/procedencia';
-        $response = Http::get($urlCatalogo);
-        //dd($response);//Dump & Die debugueo data
-        return $response->body();
+        return response()->json($service->consulta());
     }
 
     public function test(Request $request)
@@ -35,7 +34,7 @@ class PruebaController extends Controller
         $fecha_cacheada = Cache::has('cached_date')
             ? Cache::get('cached_date')
             : $this->cacheDate();
-        
+
         return response()->json([
             'fecha_cacheada' => $fecha_cacheada,
             'fecha_actual' => new \DateTime(),

@@ -15,4 +15,5 @@ use App\Http\Controllers\PruebaController;
 */
 
 
-Route::get('/hey', PruebaController::class . '@test');
+Route::get('/hey', [PruebaController::class , 'test']);
+//Route::get('/hey', PruebaController::class);
