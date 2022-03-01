@@ -15,13 +15,12 @@ class PruebaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(PruebaRequest $request)
+    public function __invoke(Service $service, PruebaRequest $request)
     {
-        // devolver un saludo al usuario (con clave name en el request)
-        // solo si pasó la validación (procedencia en catalogo de Kuspit)
-        return 'Hola!';
+        /** @var string $name */
+        $name = $service->getName($request->validated('procedencia'));
 
-
+        return $name;
     }
 
     public function catalogo(Service $service)
