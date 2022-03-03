@@ -28,7 +28,7 @@ class Service
         return $name['descripcion'];
     }
 
-    public function  cacheData(): Collection
+    public function cacheData(): Collection
     {
         $data = $this->getCatalogo();
         Cache::put('catalogo', $data, now()->addDay());
